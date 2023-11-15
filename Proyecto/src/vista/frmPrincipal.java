@@ -60,9 +60,9 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void fondoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fondoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            System.out.println("Se presionó la tecla Intro");
+            frmJuego juego = new frmJuego();
+            dispose();
         }
-       
     }//GEN-LAST:event_fondoKeyPressed
 
     /**

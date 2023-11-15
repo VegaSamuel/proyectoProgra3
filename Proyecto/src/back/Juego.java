@@ -5,14 +5,12 @@
 package back;
 
 import javax.swing.JPanel;
-import vista.Fondo;
 
 /**
  *
  * @author ruben
  */
 public class Juego extends JPanel {
-    private Fondo fondo;
     
     public Juego() {
 

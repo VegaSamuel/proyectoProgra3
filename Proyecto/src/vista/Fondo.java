@@ -15,11 +15,8 @@ import javax.swing.ImageIcon;
  * @author ruben
  */
 public class Fondo {
-
-    Juego juego;
-    public Fondo(Juego juego) {
-        this.juego = juego;
-    }
+    
+    public Fondo() {}
     // Dimensiones
     int anchoFondo = 800;
     int altoFondo = 300;
