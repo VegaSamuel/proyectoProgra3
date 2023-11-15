@@ -4,13 +4,11 @@
  */
 package back;
 
-import javax.swing.JPanel;
-
 /**
  *
  * @author ruben
  */
-public class Juego extends JPanel {
+public class Juego extends Thread {
     
     public Juego() {
 

@@ -15,7 +15,7 @@ public abstract class Posicionable extends Thread {
         this.y = y;
     }
     
-    public abstract void dibujar(Graphics g, int x, int y, String dir);
+    public abstract void dibujar(Graphics g);
 
     public int getX() {
         return x;

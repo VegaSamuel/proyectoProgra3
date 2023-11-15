@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/JESUS/OneDrive/Documentos/NetBeansProjects/Proyecto/src/vista/frmPrincipal.java</file>
-            <file>file:/C:/Users/JESUS/OneDrive/Documentos/NetBeansProjects/Proyecto/src/back/Usuario.java</file>
-            <file>file:/C:/Users/JESUS/OneDrive/Documentos/NetBeansProjects/Proyecto/src/vista/dlgInicioSesion.java</file>
-            <file>file:/C:/Users/JESUS/OneDrive/Documentos/NetBeansProjects/Proyecto/src/back/Control.java</file>
-            <file>file:/C:/Users/JESUS/OneDrive/Documentos/NetBeansProjects/Proyecto/src/vista/dlgNuevaCuenta.java</file>
+            <file>file:/E:/Netbeans%20Projects/proyectoProgra3/Proyecto/src/dominio/Jugador.java</file>
+            <file>file:/E:/Netbeans%20Projects/proyectoProgra3/Proyecto/src/dominio/Posicionable.java</file>
+            <file>file:/E:/Netbeans%20Projects/proyectoProgra3/Proyecto/src/vista/frmJuego.java</file>
         </group>
     </open-files>
 </project-private>
