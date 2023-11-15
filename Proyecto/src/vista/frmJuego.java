@@ -18,6 +18,8 @@ public class frmJuego extends javax.swing.JFrame {
         Fondo fondo = new Fondo();
         jPanel1.add(fondo);
         jPanel1.repaint();
+        jugador = new Jugador(jPanel1);
+        jugador.setDir("/Multimedia/zombiePlayer_idle.png");
     }   
 
     /**

@@ -6,15 +6,13 @@ import java.awt.Graphics;
  *
  * @author samuel
  */
-public abstract class Posicionable {
+public abstract class Posicionable extends Thread {
     private int x, y;
     private int ancho, largo;
     
-    public Posicionable(int x, int y, int ancho, int largo) {
+    public Posicionable(int x, int y) {
         this.x = x;
         this.y = y;
-        this.ancho = ancho;
-        this.largo = largo;
     }
     
     public abstract void dibujar(Graphics g, int x, int y, String dir);

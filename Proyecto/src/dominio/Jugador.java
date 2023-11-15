@@ -13,7 +13,7 @@ public class Jugador extends Posicionable {
     private String dir;
     
     public Jugador(JPanel panel) {
-        super(100, 50, 0, 0);
+        super(100, 50);
         this.panel = panel;
     }
     
