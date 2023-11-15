@@ -4,10 +4,8 @@
  */
 package vista;
 
-import back.Juego;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import javax.swing.ImageIcon;
 
 /**
@@ -16,20 +14,19 @@ import javax.swing.ImageIcon;
  */
 public class Fondo extends javax.swing.JPanel {
     
-    public Fondo() {}
-    // Dimensiones
-    int anchoFondo = 1920;
-    int altoFondo = 1800;
-    // Coordenadas
-    static int x1 = 1300;
-    static int y1 = 0;
-    int x2 = 0;
-    int y2 = 0;
+    public Fondo() {
+        this.setSize(1920, 1080);
+    }
 
     @Override
-    public void paint(Graphics pa) {
+    public void paint(Graphics g) {
+        Dimension height = getSize();
+        
         ImageIcon fondo = new ImageIcon(getClass().getResource("/Multimedia/Fondo1.jpg"));
-        pa.drawImage(fondo.getImage(), x1, y1, anchoFondo, altoFondo, null);
-        pa.drawImage(fondo.getImage(), x2, y2, anchoFondo, altoFondo, null);
+        
+        g.drawImage(fondo.getImage(), 0, 0, height.width, height.height, null);
+        
+        setOpaque(false);
+        super.paintComponent(g);
     }
 }
