@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 public class Fondo {
 
     Juego juego;
-
+   // samuel putito
     public Fondo(Juego juego) {
         this.juego = juego;
     }
