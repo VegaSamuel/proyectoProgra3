@@ -35,7 +35,11 @@ public class Fondo {
                 level++;
                 ponerFondo(level);
                 juego.getJugador().setX(100);
-                juego.getNina().setX(90);
+                if(juego.getNina().estaSiguiendo()) {
+                    juego.getNina().setX(90);
+                }else {
+                    juego.getNina().setX(-100);
+                }
             }
         }else if(juego.getJugador().getX() <= 100) {
             if((level-1) == 0) {
@@ -49,6 +53,14 @@ public class Fondo {
     
     private void ponerFondo(int x) {
         this.dir = dirs[x];
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
 }

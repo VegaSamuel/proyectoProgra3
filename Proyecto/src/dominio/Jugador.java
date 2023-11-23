@@ -3,7 +3,10 @@ package dominio;
 import back.Juego;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import vista.frmJuego;
 
 /**
  *
@@ -38,11 +41,18 @@ public class Jugador extends Posicionable {
                 mover(10);
                 setDir("/Multimedia/zombiePlayer_walkRight.png");
                 break;
+            case KeyEvent.VK_E:
+                atacar();
+                break;
         }
     }
 
     public void perderVida() {
         this.vida -= 1;
+    }
+    
+    public void atacar() {
+        setDir("/Multimedia/zombiePlayer_attack.png");
     }
 
     private void mover(int x) {

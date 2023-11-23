@@ -75,4 +75,8 @@ public class Nina extends Posicionable {
         this.dir = dir;
     }
 
+    public boolean estaSiguiendo() {
+        return sigue;
+    }
+
 }

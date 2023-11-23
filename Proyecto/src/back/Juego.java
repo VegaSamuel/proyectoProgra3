@@ -42,6 +42,9 @@ public class Juego extends JPanel {
                     case KeyEvent.VK_D:
                         jugador.keyPressed(e);
                         break;
+                    case KeyEvent.VK_E:
+                        jugador.keyPressed(e);
+                        break;
                     case KeyEvent.VK_Z:
                         nina.cambiarSigue();
                         break;

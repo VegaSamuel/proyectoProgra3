@@ -20,7 +20,6 @@ public class frmPrincipal extends javax.swing.JFrame {
      */
     public frmPrincipal() {
         initComponents();
-        fondo.setFocusable(true);
     }
 
     /**
@@ -38,6 +37,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -50,12 +54,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("PRESIONE ENTER PARA CONTINUAR");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 300, -1));
-
-        fondo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                fondoKeyPressed(evt);
-            }
-        });
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Multimedia/FondoPrincipal.jpg"))); // NOI18N
@@ -65,11 +63,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fondoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fondoKeyPressed
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            frmJuego juego = new frmJuego();
             dispose();
+            juego.iniciarJuego();
         }
-    }//GEN-LAST:event_fondoKeyPressed
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
