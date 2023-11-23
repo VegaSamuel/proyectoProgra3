@@ -4,13 +4,103 @@
  */
 package back;
 
+import dominio.Jugador;
+import dominio.Nina;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JPanel;
+import vista.Fondo;
+
 /**
  *
  * @author ruben
  */
-public class Juego extends Thread {
+public class Juego extends JPanel {
+    private Jugador jugador = new Jugador(this);
+    private Nina nina = new Nina(this);
+    private Fondo fondo = new Fondo(this);
+    
+    private int level = 0;
+    
+    private boolean juegoFinalizado;
     
     public Juego() {
+        juegoFinalizado = false;
+        
+        addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {}
 
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch(e.getKeyCode()) {
+                    case KeyEvent.VK_A:
+                        jugador.keyPressed(e);
+                        break;
+                    case KeyEvent.VK_D:
+                        jugador.keyPressed(e);
+                        break;
+                    case KeyEvent.VK_Z:
+                        nina.cambiarSigue();
+                        break;
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                jugador.setDir("/Multimedia/zombiePlayer_idle.png");
+            }
+            
+        });
+        
+        setFocusable(true);
     }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintChildren(g);
+        Graphics2D g2 = (Graphics2D) g;
+        dibujar(g2);
+    }
+    
+    private void dibujar(Graphics2D g) {
+        fondo.dibujar(g);
+        jugador.dibujar(g);
+        nina.dibujar(g);
+    }
+
+    public boolean isJuegoFinalizado() {
+        return juegoFinalizado;
+    }
+
+    public void finalizarJuego() {
+        juegoFinalizado = true;
+    }
+
+    public Jugador getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(Jugador jugador) {
+        this.jugador = jugador;
+    }
+
+    public Nina getNina() {
+        return nina;
+    }
+
+    public void setNina(Nina nina) {
+        this.nina = nina;
+    }
+
+    public Fondo getFondo() {
+        return fondo;
+    }
+
+    public void setFondo(Fondo fondo) {
+        this.fondo = fondo;
+    }
+
 }

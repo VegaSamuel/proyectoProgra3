@@ -1,30 +1,48 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package vista;
 
-import dominio.Jugador;
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
+import back.Juego;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 
 /**
  *
- * @author samuel
+ * @author atrap
  */
 public class frmJuego extends javax.swing.JFrame {
-    private Jugador jugador;
-    
+
     /**
      * Creates new form frmJuego
      */
     public frmJuego() {
         initComponents();
-        this.setSize(1920, 1080);
-        Fondo fondo = new Fondo();
-        jPanel1.add(fondo);
-        jPanel1.repaint();
-        jugador = new Jugador(jPanel1);
-        jugador.setDir("/Multimedia/zombiePlayer_idle.png");
-        jugador.start();
-    }  
-    
+        
+        Juego juego = new Juego();
+        setTitle("Mission Zombie");
+        add(juego);
+        setSize(1920, 1080);
+        setLocation(0, 0);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        while(true) {
+            if(juego.isJuegoFinalizado()) {
+                
+            } else {
+                juego.repaint();
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(frmJuego.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,60 +52,21 @@ public class frmJuego extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                formKeyReleased(evt);
-            }
-        });
-
-        jPanel1.setPreferredSize(new java.awt.Dimension(1920, 1080));
-        jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        int x, y;
-        x = jugador.getX();
-        y = jugador.getY();
-        String dir;
-        
-        switch(evt.getKeyCode()) {
-            case KeyEvent.VK_A:
-                x -= 10;
-                dir = "/Multimedia/zombiePlayer_walkLeft.png";
-                jugador.setX(x);
-                jugador.setDir(dir);
-                break;
-            case KeyEvent.VK_D:
-                x += 10;
-                dir = "/Multimedia/zombiePlayer_walkRight.png";
-                jugador.setX(x);
-                jugador.setDir(dir);
-                break;
-        }
-    }//GEN-LAST:event_formKeyPressed
-
-    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
-        jugador.setDir("/Multimedia/zombiePlayer_idle.png");
-    }//GEN-LAST:event_formKeyReleased
 
     /**
      * @param args the command line arguments
@@ -125,6 +104,5 @@ public class frmJuego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

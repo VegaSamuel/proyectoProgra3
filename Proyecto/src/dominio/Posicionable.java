@@ -1,12 +1,12 @@
 package dominio;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
  * @author samuel
  */
-public abstract class Posicionable extends Thread {
+public abstract class Posicionable {
     private int x, y;
     private int ancho, largo;
     
@@ -15,7 +15,7 @@ public abstract class Posicionable extends Thread {
         this.y = y;
     }
     
-    public abstract void dibujar(Graphics g);
+    public abstract void dibujar(Graphics2D g);
 
     public int getX() {
         return x;

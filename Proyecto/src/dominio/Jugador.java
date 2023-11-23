@@ -1,55 +1,52 @@
 package dominio;
 
-import java.awt.Graphics;
+import back.Juego;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 /**
  *
  * @author samuel
  */
 public class Jugador extends Posicionable {
-    private JPanel panel;
+    private Juego juego;
     private String dir;
     
-    public Jugador(JPanel panel) {
-        super(50, 700);
-        this.panel = panel;
+    private int vida;
+    
+    public Jugador(Juego juego) {
+        super(120, 750);
+        this.juego = juego;
+        this.vida = 3;
+        this.dir = "/Multimedia/zombiePlayer_idle.png";
     }
     
     @Override
-    public void dibujar(Graphics g) {
-        this.panel.update(g);
-        
-        ImageIcon image = new ImageIcon(getClass().getResource(dir));
-        g.drawImage(image.getImage(), getX(), getY(), 180, 180, panel);
-        
-        this.setLargo(image.getIconHeight());
-        this.setAncho(image.getIconWidth());
+    public void dibujar(Graphics2D g) {
+        ImageIcon image = new ImageIcon(getClass().getResource(this.getDir()));
+        g.drawImage(image.getImage(), getX(), getY(), 180, 180, null);
     }
     
-    @Override
-    public void run() {
-        while(true) {
-            try {
-                this.dibujar(this.panel.getGraphics());
-                Jugador.sleep(50);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Jugador.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    public void keyPressed(KeyEvent e) {
+        switch(e.getKeyCode()) {
+            case KeyEvent.VK_A:
+                mover(-10);
+                setDir("/Multimedia/zombiePlayer_walkLeft.png");
+                break;
+            case KeyEvent.VK_D:
+                mover(10);
+                setDir("/Multimedia/zombiePlayer_walkRight.png");
+                break;
         }
     }
 
-    public JPanel getPanel() {
-        return panel;
+    public void perderVida() {
+        this.vida -= 1;
     }
 
-    public void setPanel(JPanel panel) {
-        this.panel = panel;
+    private void mover(int x) {
+        this.setX(getX() + x);
     }
 
     public String getDir() {
@@ -58,6 +55,14 @@ public class Jugador extends Posicionable {
 
     public void setDir(String dir) {
         this.dir = dir;
+    }
+    
+    public int getVida() {
+        return vida;
+    }
+
+    public void setVida(int vida) {
+        this.vida = vida;
     }
     
 }

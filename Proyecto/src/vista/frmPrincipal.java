@@ -5,9 +5,9 @@
  */
 package vista;
 
-import javax.swing.JOptionPane;
 import java.awt.event.KeyEvent;
 import back.Control;
+import back.Juego;
 
 /**
  *
@@ -67,8 +67,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void fondoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fondoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            frmJuego juego = new frmJuego();
-            juego.setVisible(true);
             dispose();
         }
     }//GEN-LAST:event_fondoKeyPressed
