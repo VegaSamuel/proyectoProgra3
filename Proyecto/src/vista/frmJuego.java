@@ -24,7 +24,6 @@ public class frmJuego {
         Juego juego = new Juego();
         
         frame.add(juego);
-        
         frame.setVisible(true);
         
         Timer timer = new Timer(10, new ActionListener() {

@@ -7,7 +7,6 @@ package vista;
 
 import java.awt.event.KeyEvent;
 import back.Control;
-import back.Juego;
 
 /**
  *
