@@ -4,6 +4,7 @@ import back.Juego;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -12,6 +13,7 @@ import javax.swing.Timer;
  */
 public class frmJuego {
     private JFrame frame;
+    private Timer timer;
 
     public frmJuego() {
         frame = new JFrame("Mission Zombie");
@@ -26,14 +28,17 @@ public class frmJuego {
         frame.add(juego);
         frame.setVisible(true);
         
-        Timer timer = new Timer(10, new ActionListener() {
+        timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(juego.isJuegoFinalizado()) {
-                
-                } else {
+                    JOptionPane.showMessageDialog(frame, "Juego finalizado");
+                    frame.dispose();
+                    timer.stop();
+                }else {
                     juego.getNina().seguirJugador();
-                    juego.getFondo().cambiarFondo();
+                    juego.getFondo().posicionarJugadorCambioFondo();
+                    juego.verificarFinJuego();
                     juego.repaint();
                 }
             }

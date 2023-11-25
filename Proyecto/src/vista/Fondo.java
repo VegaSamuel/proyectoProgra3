@@ -36,11 +36,11 @@ public class Fondo {
         g.drawImage(image.getImage(), getX(), getY(), 1920, 1080, null);
     }
 
-    public void cambiarFondo() {
+    public void posicionarJugadorCambioFondo() {
         if(juego.getJugador().getX() > 1900) {
             if((level+1) < dirs.length) {
                 level++;
-                ponerFondo(level);
+                cambiarFondo(level);
                 ajustarFondo();
                 juego.getJugador().setX(-150);
                 if(juego.getNina().estaSiguiendo()) {
@@ -52,7 +52,7 @@ public class Fondo {
         }else if(juego.getJugador().getX() < -150) {
             if((level-1) >= 0) {
                 level--;
-                ponerFondo(level);
+                cambiarFondo(level);
                 ajustarFondo();
                 juego.getJugador().setX(1900);
                 juego.getNina().setX(1890);
@@ -77,7 +77,7 @@ public class Fondo {
         }
     }
     
-    private void ponerFondo(int x) {
+    private void cambiarFondo(int x) {
         this.dir = dirs[x];
     }
 

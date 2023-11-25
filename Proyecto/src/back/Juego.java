@@ -4,6 +4,7 @@
  */
 package back;
 
+import dominio.HUD;
 import dominio.Jugador;
 import dominio.Nina;
 import java.awt.Graphics;
@@ -21,8 +22,7 @@ public class Juego extends JPanel {
     private Jugador jugador = new Jugador(this);
     private Nina nina = new Nina(this);
     private Fondo fondo = new Fondo(this);
-    
-    private int level = 0;
+    private HUD hud = new HUD(this);
     
     private boolean juegoFinalizado;
     
@@ -72,14 +72,25 @@ public class Juego extends JPanel {
         fondo.dibujar(g);
         jugador.dibujar(g);
         nina.dibujar(g);
+        hud.dibujarCorazones(g);
     }
-
+    
     public boolean isJuegoFinalizado() {
         return juegoFinalizado;
     }
 
-    public void finalizarJuego() {
-        juegoFinalizado = true;
+    public void verificarFinJuego() {
+        if(this.jugador.getX() == 1370 && this.fondo.getLevel() == 3) {
+            juegoFinalizado = true;
+        }
+        
+        if(this.jugador.getX() == 1370 && this.fondo.getLevel() == 0) {
+            jugador.perderVida();
+        }
+        
+        if(this.jugador.getVida() == 0) {
+            juegoFinalizado = true;
+        }
     }
 
     public Jugador getJugador() {
@@ -104,6 +115,14 @@ public class Juego extends JPanel {
 
     public void setFondo(Fondo fondo) {
         this.fondo = fondo;
+    }
+
+    public HUD getHud() {
+        return hud;
+    }
+
+    public void setHud(HUD hud) {
+        this.hud = hud;
     }
 
 }
