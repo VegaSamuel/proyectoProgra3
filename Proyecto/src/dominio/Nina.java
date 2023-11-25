@@ -32,6 +32,14 @@ public class Nina extends Posicionable {
         g.drawImage(image.getImage(), getX(), getY(), 70, 125, null);
     }
     
+    public void restaurarValores() {
+        setX(70);
+        if(!estaSiguiendo()) {
+            cambiarSigue();
+        }
+        setDir("/Multimedia/nina_idle.png");
+    }
+    
     public void seguirJugador() {
         if(this.sigue) {
             if(this.seEstaAlejando()) {

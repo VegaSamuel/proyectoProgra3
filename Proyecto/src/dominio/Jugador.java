@@ -3,10 +3,7 @@ package dominio;
 import back.Juego;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import vista.frmJuego;
 
 /**
  *
@@ -15,6 +12,7 @@ import vista.frmJuego;
 public class Jugador extends Posicionable {
     private Juego juego;
     private String dir;
+    private int estado;
     
     private int vida;
     
@@ -46,6 +44,12 @@ public class Jugador extends Posicionable {
                 break;
         }
     }
+    
+    public void restaurarValores() {
+        setX(120);
+        setVida(3);
+        setDir("/Multimedia/zombiePlayer_idle.png");
+    }
 
     public void perderVida() {
         this.vida -= 1;
@@ -74,5 +78,13 @@ public class Jugador extends Posicionable {
     public void setVida(int vida) {
         this.vida = vida;
     }
-    
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
 }

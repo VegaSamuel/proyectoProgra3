@@ -32,19 +32,36 @@ public class frmJuego {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(juego.isJuegoFinalizado()) {
-                    JOptionPane.showMessageDialog(frame, "Juego finalizado");
-                    frame.dispose();
-                    timer.stop();
+                    mostrarCuadroFinJuego(juego);
+                    
+                    if(juego.sePuedeReiniciar()) {
+                        juego.reiniciarJuego();
+                    }else {
+                        timer.stop();
+                        System.exit(0);
+                    }
                 }else {
-                    juego.getNina().seguirJugador();
-                    juego.getFondo().posicionarJugadorCambioFondo();
-                    juego.verificarFinJuego();
+                    juego.funcionalidadesJuego();
                     juego.repaint();
                 }
             }
         });
         
         timer.start();
+    }
+    
+    private void mostrarCuadroFinJuego(Juego juego) {
+        if(juego.getTipoFinalizacion().equals("FinalSeguro")) {
+            String causa = "Has terminado el juego, bien hecho!!";
+            dlgFinJuego dlg;
+
+            dlg = new dlgFinJuego(frame, true, juego, causa);
+            dlg.setVisible(true);
+
+            System.out.println(juego.sePuedeReiniciar());
+            
+            return;
+        }
     }
     
 }

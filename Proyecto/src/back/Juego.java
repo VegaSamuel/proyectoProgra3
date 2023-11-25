@@ -1,9 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package back;
 
+import dominio.Enemigo;
 import dominio.HUD;
 import dominio.Jugador;
 import dominio.Nina;
@@ -11,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Random;
 import javax.swing.JPanel;
 import vista.Fondo;
 
@@ -21,13 +19,18 @@ import vista.Fondo;
 public class Juego extends JPanel {
     private Jugador jugador = new Jugador(this);
     private Nina nina = new Nina(this);
+    private Enemigo[] enemigos = new Enemigo[1];
     private Fondo fondo = new Fondo(this);
     private HUD hud = new HUD(this);
     
     private boolean juegoFinalizado;
+    private boolean reinicio;
+    private boolean juegoGanado;
     
     public Juego() {
         juegoFinalizado = false;
+        juegoGanado = false;
+        reinicio = false;
         
         addKeyListener(new KeyListener() {
             @Override
@@ -72,26 +75,85 @@ public class Juego extends JPanel {
         fondo.dibujar(g);
         jugador.dibujar(g);
         nina.dibujar(g);
+//        if(estaEnNivelesPeligrosos()) {
+//            for (int i = 0; i < 10; i++) {
+//                enemigos[i].dibujar(g);
+//            }
+//        }
         hud.dibujarCorazones(g);
+    }
+    
+    public void funcionalidadesJuego() {
+        getNina().seguirJugador();
+        getFondo().posicionarJugadorCambioFondo();
+        
+        verificarFinJuego();
     }
     
     public boolean isJuegoFinalizado() {
         return juegoFinalizado;
     }
+    
+    public String getTipoFinalizacion() {
+        if(juegoGanado) {
+            return "FinalSeguro";
+        }else {
+            return "Asesinado";
+        }
+    }
+    
+    public void reiniciarJuego() {
+        this.jugador.restaurarValores();
+        this.nina.restaurarValores();
+        this.fondo.restaurarValores();
+        
+        this.juegoFinalizado = false;
+    }
 
     public void verificarFinJuego() {
-        if(this.jugador.getX() == 1370 && this.fondo.getLevel() == 3) {
+        if(ninaYZombieEnElFinal() && estaEnUltimoNivel()) {
             juegoFinalizado = true;
+            juegoGanado = true;
         }
         
-        if(this.jugador.getX() == 1370 && this.fondo.getLevel() == 0) {
-            jugador.perderVida();
-        }
+//        if(hayZombies()) {
+//            if(this.jugador.getX() == this.enemigos[0][0].getX()) {
+//                jugador.perderVida();
+//            }
+//        }
         
         if(this.jugador.getVida() == 0) {
             juegoFinalizado = true;
         }
     }
+    
+    private boolean ninaYZombieEnElFinal() {
+        return (this.jugador.getX() == 1370 && this.getNina().getX() == 1350);
+    }
+    
+    private boolean estaEnUltimoNivel() {
+        return this.fondo.getLevel() == 3;
+    }
+    
+    public boolean estaEnNivelesPeligrosos() {
+        return this.fondo.getLevel() > 0 && this.fondo.getLevel() < 3;
+    }
+    
+//    public boolean hayZombies() {
+//        return this.enemigos[0] != null;
+//    }
+//    
+//    public void generarZombies() {
+//        Random random = new Random();
+//        int cantidad = random.nextInt(6);
+//        enemigos = new Enemigo[cantidad];
+//            
+//        if(this.fondo.getLevel() == 1) {
+//            for (int i = 0; i < cantidad; i++) {
+//                enemigos[i] = new Enemigo(this);
+//            }
+//        }
+//    }
 
     public Jugador getJugador() {
         return jugador;
@@ -123,6 +185,14 @@ public class Juego extends JPanel {
 
     public void setHud(HUD hud) {
         this.hud = hud;
+    }
+
+    public void setReinicio(boolean reinicio) {
+        this.reinicio = reinicio;
+    }
+    
+    public boolean sePuedeReiniciar() {
+        return reinicio;
     }
 
 }

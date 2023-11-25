@@ -35,6 +35,13 @@ public class Fondo {
         ImageIcon image = new ImageIcon(getClass().getResource(this.dir));
         g.drawImage(image.getImage(), getX(), getY(), 1920, 1080, null);
     }
+    
+    public void restaurarValores() {
+        setLevel(0);
+        setX(0);
+        setY(0);
+        setDir(dirs[0]);
+    }
 
     public void posicionarJugadorCambioFondo() {
         if(juego.getJugador().getX() > 1900) {
@@ -103,6 +110,14 @@ public class Fondo {
 
     public void setY(int y) {
         this.y = y;
+    }
+
+    public String getDir() {
+        return dir;
+    }
+
+    public void setDir(String dir) {
+        this.dir = dir;
     }
 
 }
