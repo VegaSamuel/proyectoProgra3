@@ -19,7 +19,8 @@ import vista.Fondo;
 public class Juego extends JPanel {
     private Jugador jugador = new Jugador(this);
     private Nina nina = new Nina(this);
-    private Enemigo[] enemigos = new Enemigo[1];
+    private Enemigo[] enemigosL1;
+    private Enemigo[] enemigosL2;
     private Fondo fondo = new Fondo(this);
     private HUD hud = new HUD(this);
     
@@ -47,6 +48,16 @@ public class Juego extends JPanel {
                         break;
                     case KeyEvent.VK_E:
                         jugador.keyPressed(e);
+                        if(hayZombiesGenerados(enemigosL1)) {
+                                for (Enemigo enemigo : enemigosL1) {
+                                enemigo.perderVida();
+                            }
+                        }
+                        if(hayZombiesGenerados(enemigosL2)) {
+                                for (Enemigo enemigo : enemigosL2) {
+                                enemigo.perderVida();
+                            }
+                        }
                         break;
                     case KeyEvent.VK_Z:
                         nina.cambiarSigue();
@@ -75,38 +86,70 @@ public class Juego extends JPanel {
         fondo.dibujar(g);
         jugador.dibujar(g);
         nina.dibujar(g);
-//        if(estaEnNivelesPeligrosos()) {
-//            for (int i = 0; i < 10; i++) {
-//                enemigos[i].dibujar(g);
-//            }
-//        }
+        if(this.fondo.getLevel() == 1 && hayZombiesGenerados(enemigosL1)) {
+            for (Enemigo zombie : enemigosL1) {
+                zombie.dibujar(g);
+            }
+        }
+        if(this.fondo.getLevel() == 2 && hayZombiesGenerados(enemigosL2)) {
+            for (Enemigo zombie : enemigosL2) {
+                zombie.dibujar(g);
+            }
+        }
         hud.dibujarCorazones(g);
     }
     
     public void funcionalidadesJuego() {
         getNina().seguirJugador();
         getFondo().posicionarJugadorCambioFondo();
-        
+        if(this.fondo.getLevel() == 1 && !hayZombiesGenerados(enemigosL1)) {
+            enemigosL1 = generarZombies();
+        }else if(this.fondo.getLevel() == 1) {
+            if(this.quedanZombies(enemigosL1)) {
+                limitarMovimientoJugador();
+            }
+        }
+        if(this.fondo.getLevel() == 2 && !hayZombiesGenerados(enemigosL2)) {
+            enemigosL2 = generarZombies();
+        }else if(this.fondo.getLevel() == 2) {
+            if(this.quedanZombies(enemigosL2)) {
+                limitarMovimientoJugador();
+            }
+        }
         verificarFinJuego();
+    }
+    
+    private void limitarMovimientoJugador() {
+        if(this.jugador.getX() > 1769) {
+            this.jugador.setX(1769);
+        }else if (this.jugador.getX() < 1){
+            this.jugador.setX(1);
+        }
     }
     
     public boolean isJuegoFinalizado() {
         return juegoFinalizado;
     }
+        
+    public boolean sePuedeReiniciar() {
+        return reinicio;
+    }
     
     public String getTipoFinalizacion() {
-        if(juegoGanado) {
+        if(isJuegoFinalizado()) {
             return "FinalSeguro";
-        }else {
+        }else if(this.jugador.getVida() == 0){
             return "Asesinado";
         }
+        return null;
     }
     
     public void reiniciarJuego() {
         this.jugador.restaurarValores();
         this.nina.restaurarValores();
         this.fondo.restaurarValores();
-        
+        this.enemigosL1 = null;
+        this.enemigosL2 = null;
         this.juegoFinalizado = false;
     }
 
@@ -116,11 +159,17 @@ public class Juego extends JPanel {
             juegoGanado = true;
         }
         
-//        if(hayZombies()) {
-//            if(this.jugador.getX() == this.enemigos[0][0].getX()) {
-//                jugador.perderVida();
-//            }
-//        }
+        if(hayZombiesGenerados(enemigosL1)) {
+            if(this.jugador.getX() == this.enemigosL1[0].getX()) {
+                jugador.perderVida();
+            }
+        }
+        
+        if(hayZombiesGenerados(enemigosL2)) {
+            if(this.jugador.getX() == this.enemigosL2[0].getX()) {
+                jugador.perderVida();
+            }
+        }
         
         if(this.jugador.getVida() == 0) {
             juegoFinalizado = true;
@@ -139,21 +188,36 @@ public class Juego extends JPanel {
         return this.fondo.getLevel() > 0 && this.fondo.getLevel() < 3;
     }
     
-//    public boolean hayZombies() {
-//        return this.enemigos[0] != null;
-//    }
-//    
-//    public void generarZombies() {
-//        Random random = new Random();
-//        int cantidad = random.nextInt(6);
-//        enemigos = new Enemigo[cantidad];
-//            
-//        if(this.fondo.getLevel() == 1) {
-//            for (int i = 0; i < cantidad; i++) {
-//                enemigos[i] = new Enemigo(this);
-//            }
-//        }
-//    }
+    public boolean hayZombiesGenerados(Enemigo[] zombies) {
+        return zombies != null;
+    }
+    
+    public boolean quedanZombies(Enemigo[] zombies) {
+        int total = zombies.length;
+        int inicial = 0;
+        
+        for (Enemigo zombie : zombies) {
+            if(zombie.esDerrotado()) {
+                inicial++;
+            }
+        }
+        
+        return inicial != total;
+    }
+    
+    private Enemigo[] generarZombies() {
+        Random random = new Random();
+        int cantidad = random.nextInt(6) + 1;
+        Enemigo[] zombies = new Enemigo[cantidad];
+            
+        if(this.estaEnNivelesPeligrosos()) {
+            for (int i = 0; i < cantidad; i++) {
+                zombies[i] = new Enemigo(this);
+            }
+        }
+        
+        return zombies;
+    }
 
     public Jugador getJugador() {
         return jugador;
@@ -189,10 +253,6 @@ public class Juego extends JPanel {
 
     public void setReinicio(boolean reinicio) {
         this.reinicio = reinicio;
-    }
-    
-    public boolean sePuedeReiniciar() {
-        return reinicio;
     }
 
 }

@@ -12,7 +12,6 @@ import javax.swing.ImageIcon;
 public class Jugador extends Posicionable {
     private Juego juego;
     private String dir;
-    private int estado;
     
     private int vida;
     
@@ -77,14 +76,6 @@ public class Jugador extends Posicionable {
 
     public void setVida(int vida) {
         this.vida = vida;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
     }
 
 }

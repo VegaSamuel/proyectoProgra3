@@ -51,17 +51,20 @@ public class frmJuego {
     }
     
     private void mostrarCuadroFinJuego(Juego juego) {
+        String causa = "";
+        
         if(juego.getTipoFinalizacion().equals("FinalSeguro")) {
-            String causa = "Has terminado el juego, bien hecho!!";
-            dlgFinJuego dlg;
-
-            dlg = new dlgFinJuego(frame, true, juego, causa);
-            dlg.setVisible(true);
-
-            System.out.println(juego.sePuedeReiniciar());
-            
-            return;
+            causa = "Has terminado el juego, bien hecho!!";
+        }else if(juego.getTipoFinalizacion().equals("Asesinado")) {
+            causa =  "Te han asesinado :(";
         }
+        
+        dlgFinJuego dlg;
+
+        dlg = new dlgFinJuego(frame, true, juego, causa);
+        dlg.setVisible(true);
+            
+        return;
     }
     
 }
