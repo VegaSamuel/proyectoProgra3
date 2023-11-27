@@ -23,10 +23,13 @@ public class Jugador extends Posicionable {
     private int vida;
     private int direccion;
     
+    private int xAtaque;
+    
     public Jugador(Juego juego) {
         super(120, 750);
         this.juego = juego;
         this.vida = 3;
+        this.xAtaque = 0;
         this.dir = "/Multimedia/zombiePlayer_idle.png";
     }
     
@@ -34,7 +37,6 @@ public class Jugador extends Posicionable {
     public void dibujar(Graphics2D g) {
         ImageIcon image = new ImageIcon(getClass().getResource(this.getDir()));
         g.drawImage(image.getImage(), getX(), getY(), 180, 180, null);
-        g.draw(this.getBounds());
     }
     
     public void keyPressed(KeyEvent e) {
@@ -65,8 +67,10 @@ public class Jugador extends Posicionable {
                 break;
             case KeyEvent.VK_E:
                 if(direccion > 0) {
+                    this.xAtaque = 2;
                     setDir("/Multimedia/zombiePlayer_idle.png");
                 }else {
+                    this.xAtaque = 0;
                     setDir("/Multimedia/zombiePlayer_idleLeft.png");
                 }
                 break;
@@ -85,8 +89,10 @@ public class Jugador extends Posicionable {
     
     public void atacar() {
         if(direccion > 0) {
+            this.xAtaque = 20;
             setDir("/Multimedia/zombiePlayer_attack.png");
         }else {
+            this.xAtaque = -20;
             setDir("/Multimedia/zombiePlayer_attackLeft.png");
         }
     }
@@ -96,10 +102,17 @@ public class Jugador extends Posicionable {
     }
     
     public Area getBounds() {
-        Rectangle cuerpo = new Rectangle(this.getX()+40, this.getY(), 95, 180);
+        Rectangle cuerpo = new Rectangle(this.getX()+40+this.xAtaque, this.getY(), 95, 180);
         this.jugador = new Area(cuerpo);
         
         return jugador;
+    }
+    
+    public boolean dañaEnemigo(Enemigo enemigo) {
+        Area enemigoA = enemigo.getBounds();
+        enemigoA.intersect(getBounds());
+        
+        return !enemigoA.isEmpty();
     }
 
     public String getDir() {

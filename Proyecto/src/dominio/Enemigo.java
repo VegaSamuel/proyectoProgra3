@@ -78,7 +78,7 @@ public class Enemigo extends Posicionable {
     private void mover() {
         if(this.getX() < (this.juego.getJugador().getX() - 98)) {
             this.setX(this.getX() + 2);
-            this.xAtaque = 10;
+            this.xAtaque = 15;
             this.setDir("/Multimedia/zombieFresh_walkRight.png");
             
             if(this.estaCercaJugador()) {
@@ -89,7 +89,7 @@ public class Enemigo extends Posicionable {
         
         if(this.getX() > (this.juego.getJugador().getX() + 98)) {
             this.setX(this.getX() - 2);
-            this.xAtaque = -10;
+            this.xAtaque = -15;
             this.setDir("/Multimedia/zombieFresh_walkLeft.png");
             
             if(this.estaCercaJugador()) {

@@ -51,13 +51,17 @@ public class Juego extends JPanel {
                     case KeyEvent.VK_E:
                         jugador.keyPressed(e);
                         if(hayZombiesGenerados(enemigosL1)) {
-                                for (Enemigo enemigo : enemigosL1) {
-                                enemigo.perderVida();
+                            for (Enemigo enemigo : enemigosL1) {
+                                if(jugador.dañaEnemigo(enemigo)) {
+                                    enemigo.perderVida();
+                                }
                             }
                         }
                         if(hayZombiesGenerados(enemigosL2)) {
-                                for (Enemigo enemigo : enemigosL2) {
-                                enemigo.perderVida();
+                            for (Enemigo enemigo : enemigosL2) {
+                                if(jugador.dañaEnemigo(enemigo)) {
+                                    enemigo.perderVida();
+                                }
                             }
                         }
                         break;
