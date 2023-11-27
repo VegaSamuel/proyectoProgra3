@@ -67,7 +67,17 @@ public class Juego extends JPanel {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                jugador.setDir("/Multimedia/zombiePlayer_idle.png");
+                switch(e.getKeyCode()) {
+                    case KeyEvent.VK_A:
+                        jugador.keyRealeased(e);
+                        break;
+                    case KeyEvent.VK_D:
+                        jugador.keyRealeased(e);
+                        break;
+                    case KeyEvent.VK_E:
+                        jugador.keyRealeased(e);
+                        break;
+                }
             }
             
         });

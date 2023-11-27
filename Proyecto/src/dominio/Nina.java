@@ -2,6 +2,8 @@ package dominio;
 
 import back.Juego;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.geom.Area;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -14,6 +16,8 @@ import vista.frmJuego;
 public class Nina extends Posicionable {
     private Juego juego;
     private String dir;
+    
+    private Area nina;
     
     private boolean sigue;
     private Jugador jugador;
@@ -64,6 +68,13 @@ public class Nina extends Posicionable {
             this.setX(this.getX() - 10);
             this.setDir("/Multimedia/nina_walkLeft.png");
         }
+    }
+    
+    public Area getBounds() {
+        Rectangle cuerpo = new Rectangle(this.getX()+5, this.getY(), 50, 120);
+        this.nina = new Area(cuerpo);
+        
+        return nina;
     }
     
     public void cambiarSigue() {
