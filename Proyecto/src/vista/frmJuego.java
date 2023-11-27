@@ -53,7 +53,7 @@ public class frmJuego {
     private void mostrarCuadroFinJuego(Juego juego) {
         String causa = "";
         
-        if(juego.getTipoFinalizacion().equals("FinalSeguro")) {
+        if(juego.getTipoFinalizacion().equals("FinalGanado")) {
             causa = "Has terminado el juego, bien hecho!!";
         }else if(juego.getTipoFinalizacion().equals("Asesinado")) {
             causa =  "Te han asesinado :(";

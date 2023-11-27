@@ -27,11 +27,13 @@ public class Juego extends JPanel {
     private boolean juegoFinalizado;
     private boolean reinicio;
     private boolean juegoGanado;
+    private boolean asesinado;
     
     public Juego() {
         juegoFinalizado = false;
         juegoGanado = false;
         reinicio = false;
+        asesinado = false;
         
         addKeyListener(new KeyListener() {
             @Override
@@ -140,14 +142,22 @@ public class Juego extends JPanel {
     public boolean isJuegoFinalizado() {
         return juegoFinalizado;
     }
+    
+    private boolean isJuegoGanado() {
+        return juegoGanado;
+    }
+    
+    private boolean isAsesinado() {
+        return asesinado;
+    }
         
     public boolean sePuedeReiniciar() {
         return reinicio;
     }
     
     public String getTipoFinalizacion() {
-        if(isJuegoFinalizado()) {
-            return "FinalSeguro";
+        if(isJuegoGanado()) {
+            return "FinalGanado";
         }else if(this.jugador.getVida() == 0){
             return "Asesinado";
         }
@@ -161,28 +171,17 @@ public class Juego extends JPanel {
         this.enemigosL1 = null;
         this.enemigosL2 = null;
         this.juegoFinalizado = false;
+        this.juegoGanado = false;
+        this.asesinado = false;
     }
 
     public void verificarFinJuego() {
         if(ninaYZombieEnElFinal() && estaEnUltimoNivel()) {
             juegoFinalizado = true;
             juegoGanado = true;
-        }
-        
-        if(hayZombiesGenerados(enemigosL1)) {
-            if(this.jugador.getX() == this.enemigosL1[0].getX()) {
-                jugador.perderVida();
-            }
-        }
-        
-        if(hayZombiesGenerados(enemigosL2)) {
-            if(this.jugador.getX() == this.enemigosL2[0].getX()) {
-                jugador.perderVida();
-            }
-        }
-        
-        if(this.jugador.getVida() == 0) {
+        }else if(this.jugador.getVida() == 0){
             juegoFinalizado = true;
+            asesinado = true;
         }
     }
     
