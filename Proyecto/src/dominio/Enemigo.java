@@ -35,15 +35,15 @@ public class Enemigo extends Posicionable {
         this.dir = "/Multimedia/zombieFresh_idle.png";
         this.vida = 2;
         
-        this.cooldownAtaque = new Timer(5000, new ActionListener() {
+        this.cooldownAtaque = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(esDerrotado()) {
                     removerDerrotado();
+                }else {
+                    timer.start();
                 }
-                
                 cooldownAtaque.stop();
-                timer.start();
             }
         });
         
@@ -120,6 +120,7 @@ public class Enemigo extends Posicionable {
     
     public void removerDerrotado() {
         this.setX(-500);
+        this.cooldownAtaque.stop();
         this.timer.stop();
     }
     
@@ -131,7 +132,7 @@ public class Enemigo extends Posicionable {
     }
     
     public boolean esDerrotado() {
-        return this.vida == 0;
+        return this.vida <= 0;
     }
     
     private void generarLocacionX() {
