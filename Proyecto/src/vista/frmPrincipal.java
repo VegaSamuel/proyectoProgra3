@@ -7,6 +7,8 @@ package vista;
 
 import java.awt.event.KeyEvent;
 import back.Control;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 /**
  *
@@ -18,7 +20,30 @@ public class frmPrincipal extends javax.swing.JFrame {
      * Creates new form frmPrincipal
      */
     public frmPrincipal() {
+        c = new Control();
+        
         initComponents();
+        
+        c.sesionActiva = false;
+        
+        centrarVentana();
+    }
+    
+    private void centrarVentana() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        Dimension frameSize = getSize();
+        
+        if(frameSize.height > screenSize.height) {
+            frameSize.height = screenSize.height;
+        }
+        
+        if(frameSize.width > screenSize.width) {
+            frameSize.width = screenSize.width;
+        }
+        
+        setLocation((screenSize.width - frameSize.width)/2, 
+                    (screenSize.height - frameSize.height)/2);
     }
 
     /**
@@ -64,9 +89,14 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            frmJuego juego = new frmJuego();
-            dispose();
-            juego.iniciarJuego();
+            if(c.estaSesionActiva()) {
+                frmJuego juego = new frmJuego();
+                dispose();
+                juego.iniciarJuego();
+            }else {
+                c.inicioSesion(this);
+                c.sesionActiva = true;
+            }
         }
     }//GEN-LAST:event_formKeyPressed
 

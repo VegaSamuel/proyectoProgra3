@@ -6,21 +6,24 @@
 package back;
 import javax.swing.JFrame;
 import vista.dlgInicioSesion;
-import vista.frmPrincipal;
 
 /**
  *
  * @author 
  */
 public class Control {
+    public boolean sesionActiva;
     
     public void inicioSesion(JFrame frame){
+        dlgInicioSesion dlgIS;
         
+        dlgIS = new dlgInicioSesion(frame, true);
+        
+        return;
     }
     
-    public void crearUsuario(){
-        
+    public boolean estaSesionActiva() {
+        return sesionActiva;
     }
-    
     
 }

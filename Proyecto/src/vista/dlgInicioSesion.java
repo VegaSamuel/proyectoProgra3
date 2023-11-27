@@ -5,18 +5,40 @@
  */
 package vista;
 
+import back.Usuario;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.Point;
+
 /**
  *
  * @author 
  */
 public class dlgInicioSesion extends javax.swing.JDialog {
+    private Usuario usuario;
 
     /**
      * Creates new form frmInicioSesion
      */
     public dlgInicioSesion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        
+        this.usuario = new Usuario();
+        
         initComponents();
+        
+        centraCuadroDialogo(parent);
+        setVisible(true);
+    }
+
+    public void centraCuadroDialogo(java.awt.Frame parent) {
+        Dimension frameSize = parent.getSize();
+        Point loc = parent.getLocation();
+        
+        Dimension dlgSize = getPreferredSize();
+        
+        setLocation((frameSize.width - dlgSize.width) / 2 + loc.x, 
+                    (frameSize.height - dlgSize.height) / 2 + loc.y);
     }
 
     /**
@@ -93,11 +115,12 @@ public class dlgInicioSesion extends javax.swing.JDialog {
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSesionNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSesionNActionPerformed
-        // TODO add your handling code here:
+        dispose();
+        dlgNuevaCuenta dlg = new dlgNuevaCuenta((Frame) getParent(), true, usuario);
     }//GEN-LAST:event_btnSesionNActionPerformed
 
     

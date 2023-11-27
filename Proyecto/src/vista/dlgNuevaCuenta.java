@@ -5,18 +5,43 @@
  */
 package vista;
 
+import back.Usuario;
+import back.Validadores;
+import java.awt.Dimension;
+import java.awt.Point;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 
  */
 public class dlgNuevaCuenta extends javax.swing.JDialog {
-
+    private Validadores validador;
+    private Usuario usuario;
+    
     /**
      * Creates new form dlgNuevaCuenta
      */
-    public dlgNuevaCuenta(java.awt.Frame parent, boolean modal) {
+    public dlgNuevaCuenta(java.awt.Frame parent, boolean modal, Usuario usuario) {
         super(parent, modal);
+        
+        this.usuario = usuario;
+        this.validador = new Validadores();
+        
         initComponents();
+        
+        centraCuadroDialogo(parent);
+        setVisible(true);
+    }
+
+    public void centraCuadroDialogo(java.awt.Frame parent) {
+        Dimension frameSize = parent.getSize();
+        Point loc = parent.getLocation();
+        
+        Dimension dlgSize = getPreferredSize();
+        
+        setLocation((frameSize.width - dlgSize.width) / 2 + loc.x, 
+                    (frameSize.height - dlgSize.height) / 2 + loc.y);
     }
 
     /**
@@ -99,55 +124,53 @@ public class dlgNuevaCuenta extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestaurarActionPerformed
-        // TODO add your handling code here:
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        txtUsuario.setText("");
+        txtContraseña.setText("");
     }//GEN-LAST:event_btnRestaurarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCrearActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+        while(true) {
+            if(validador.validarNombre(txtNombre.getText())) {
+                this.usuario.setNombre(txtNombre.getText());
+                break;
+            }else {
+                JOptionPane.showMessageDialog(this.getParent(), "Formato de nombre incorrecto!!", "Escriba correctamente su nombre.", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(dlgNuevaCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(dlgNuevaCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(dlgNuevaCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(dlgNuevaCuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                dlgNuevaCuenta dialog = new dlgNuevaCuenta(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+        while(true) {
+            if(validador.validarCorreo(txtCorreo.getText())) {
+                this.usuario.setCorreo(txtCorreo.getText());
+                break;
+            }else {
+                JOptionPane.showMessageDialog(this.getParent(), "Formato de correo incorrecto!!", "Escriba correctamente su correo.", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        });
-    }
-
+        }
+        while(true) {
+            if(validador.validarUsuario(txtUsuario.getText())) {
+                this.usuario.setUsuario(txtUsuario.getText());
+                break;
+            }else {
+                JOptionPane.showMessageDialog(this.getParent(), "Formato de usuario incorrecto!!", "Escriba correctamente su usuario.", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+        while(true) {
+            if(validador.validarCorreo(txtCorreo.getText())) {
+                this.usuario.setCorreo(txtCorreo.getText());
+                break;
+            }else {
+                JOptionPane.showMessageDialog(this.getParent(), "Formato de correo incorrecto!!", "Escriba correctamente su correo.", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+        
+        JOptionPane.showMessageDialog(this.getParent(), "Registro exitoso!", "Su usuario se ha creado exitosamente.", JOptionPane.PLAIN_MESSAGE);
+        dispose();
+    }//GEN-LAST:event_btnCrearActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCrear;
